@@ -48,16 +48,22 @@ app.post("/devices", (req, res) => {
 
 // delete a device
 app.delete("/devices/:id", (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const deviceIndex = devices.findIndex( (el) => el.id === parseInt(id));
-  
-    if (deviceIndex === -1) {
-      return res.status(404).send();
-    }
+    const deviceIndex = devices.findIndex( (el) => el.id === parseInt(id));
     
-    devices.splice(deviceIndex, 1); 
-    return res.status(204).send(); 
+      if (deviceIndex === -1) {
+        return res.status(404).send();
+      }
+      
+      devices.splice(deviceIndex, 1); 
+      return res.status(204).send(); 
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).send();
+  }
 });
 
 const PORT = 8000;
