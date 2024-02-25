@@ -8,12 +8,12 @@ app.use(express.json());
 
 const devices = [];
 
-// get request - asking for resource
+// getting all the devices
 app.get("/devices", (req, res) => {
   return res.status(200).json(devices);
 });
 
-// get request - asking for device from a particular id
+// getting a single device
 app.get("/devices/:id", (req, res) => {
 
   try{
@@ -31,7 +31,7 @@ app.get("/devices/:id", (req, res) => {
   }
 });
 
-// post request
+// creating a device
 app.post("/devices", (req, res) => {
 
   // taking body as an object
@@ -44,7 +44,21 @@ app.post("/devices", (req, res) => {
   // prints what is coming in
   //console.log(device);
   //res.status(200).json(devices);
-})
+});
+
+// delete a device
+app.delete("/devices/:id", (req, res) => {
+  const { id } = req.params;
+
+  const deviceIndex = devices.findIndex( (el) => el.id === parseInt(id));
+  
+    if (deviceIndex === -1) {
+      return res.status(404).send();
+    }
+    
+    devices.splice(deviceIndex, 1); 
+    return res.status(204).send(); 
+});
 
 const PORT = 8000;
 
