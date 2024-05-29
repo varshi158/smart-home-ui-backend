@@ -18,21 +18,11 @@ app.use("/api/devices", deviceRouter);
 
 
 //const PORT = 8000;
-
-// connecting the mongodb database
-// const DB = process.env.DATABASE_URL;
-// mongoose.connect(DB).then(() => {
-//   console.log("db connection successful");
-// })
-// .catch((error) => {
-//   console.log(error);
-// })
-
 const PORT = process.env.PORT || 8000;
 
 // Connect to MongoDB
 const DB = process.env.DATABASE_URL;
-mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(DB)
   .then(() => {
     console.log("DB connection successful");
   })
